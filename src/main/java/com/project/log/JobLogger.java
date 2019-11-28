@@ -46,7 +46,7 @@ public class JobLogger {
 		String messageError = "";
 		String logFileName = "logFile.txt";
         
-        //validation
+		// validation
 		if (messageText == null || messageText.trim().isEmpty()) {
 			logger.log(Level.INFO, "the message is empty.");
 			return;
@@ -57,7 +57,7 @@ public class JobLogger {
 			throw new Exception("Error or Warning or Message must be specified.");
 		}
 
-        //message
+		// message
 		if (message && logMessage) {
 			logQuantity++;
 			messageError = getMessageError(messageError, messageText, "message");
@@ -71,7 +71,7 @@ public class JobLogger {
 			messageError = getMessageError(messageError, messageText, "warning");
 		}
 	
-        //log type
+		// log type
 		if (logToFile) {
 			File logFile = new File(dbParams.get("logFileFolder") + "/" + logFileName);
 			if (!logFile.exists()) {
