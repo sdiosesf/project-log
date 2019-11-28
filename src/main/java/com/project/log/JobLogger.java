@@ -42,63 +42,63 @@ public class JobLogger {
      * @param error
      */
 	public void logMessage(String messageText, boolean message, boolean warning, boolean error) throws Exception {
-        int logQuantity  = 0;
-        String messageError = "";
-        String logFileName = "logFile.txt";
+		int logQuantity = 0;
+		String messageError = "";
+		String logFileName = "logFile.txt";
         
         //validation
-        if (messageText == null || messageText.trim().isEmpty()) {
-        	logger.log(Level.INFO, "the message is empty.");
-            return;
-        }
-        if (!logToConsole && !logToFile && !logToDatabase) {
-            throw new Exception("Invalid configuration.");
-        } else if ((!logError && !logMessage && !logWarning) || (!message && !warning && !error)) {
-            throw new Exception("Error or Warning or Message must be specified.");
-        }
+		if (messageText == null || messageText.trim().isEmpty()) {
+			logger.log(Level.INFO, "the message is empty.");
+			return;
+		}
+		if (!logToConsole && !logToFile && !logToDatabase) {
+			throw new Exception("Invalid configuration.");
+		} else if ((!logError && !logMessage && !logWarning) || (!message && !warning && !error)) {
+			throw new Exception("Error or Warning or Message must be specified.");
+		}
 
         //message
-        if (message && logMessage) {
-            logQuantity++;
-            messageError = getMessageError(messageError, messageText, "message");
-        }
-        if (error && logError) {
-            logQuantity++;
-            messageError = getMessageError(messageError, messageText, "error");
-        }
-        if (warning && logWarning) {
-            logQuantity++;
-            messageError = getMessageError(messageError, messageText, "warning");
-        }
+		if (message && logMessage) {
+			logQuantity++;
+			messageError = getMessageError(messageError, messageText, "message");
+		}
+		if (error && logError) {
+			logQuantity++;
+			messageError = getMessageError(messageError, messageText, "error");
+		}
+		if (warning && logWarning) {
+			logQuantity++;
+			messageError = getMessageError(messageError, messageText, "warning");
+		}
 	
         //log type
-        if (logToFile) {
-            File logFile = new File(dbParams.get("logFileFolder") + "/" + logFileName);
+		if (logToFile) {
+			File logFile = new File(dbParams.get("logFileFolder") + "/" + logFileName);
 			if (!logFile.exists()) {
 				logFile.createNewFile();
 			}
-            
-            FileHandler fh = new FileHandler(dbParams.get("logFileFolder") + "/" + logFileName);
-            logger.addHandler(fh);
-            logger.log(Level.INFO, messageText);
-        }
-        if (logToConsole) {
-            logger.addHandler(new ConsoleHandler());
-            logger.log(Level.INFO, messageText);
-        }	
-        if(logToDatabase) {
-            Properties connectionProps = new Properties();
-            connectionProps.put("user", dbParams.get("userName"));
-            connectionProps.put("password", dbParams.get("password"));
 
-            Connection connection = DriverManager.getConnection("jdbc:" + dbParams.get("dbms") + "://" + dbParams.get("serverName") + ":" + dbParams.get("portNumber") + "/" + dbParams.get("dataBaseName"), connectionProps);
+			FileHandler fh = new FileHandler(dbParams.get("logFileFolder") + "/" + logFileName);
+			logger.addHandler(fh);
+			logger.log(Level.INFO, messageText);
+		}
+		if (logToConsole) {
+			logger.addHandler(new ConsoleHandler());
+			logger.log(Level.INFO, messageText);
+		}
+		if (logToDatabase) {
+			Properties connectionProps = new Properties();
+			connectionProps.put("user", dbParams.get("userName"));
+			connectionProps.put("password", dbParams.get("password"));
 
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("INSERT INTO log VALUES ('" + messageError + "', '" + String.valueOf(logQuantity) + "')");
-            
-            stmt.close();
-            connection.close();
-        }
+			Connection connection = DriverManager.getConnection("jdbc:" + dbParams.get("dbms") + "://" + dbParams.get("serverName") + ":" + dbParams.get("portNumber") + "/" + dbParams.get("dataBaseName"), connectionProps);
+
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("INSERT INTO log VALUES ('" + messageError + "', '" + String.valueOf(logQuantity) + "')");
+
+			stmt.close();
+			connection.close();
+		}
 	}
 	
 	/**
@@ -108,10 +108,10 @@ public class JobLogger {
      * @param nameTypeLog
      */
 	private String getMessageError(String messageError, String messageText, String nameTypeLog) {
-		if(messageError != null && !messageError.trim().isEmpty()) {
-			messageError+= "\n";
+		if (messageError != null && !messageError.trim().isEmpty()) {
+			messageError += "\n";
 		}
-		messageError+= nameTypeLog + " " + DateFormat.getDateInstance(DateFormat.LONG).format(new Date()) + " " + messageText;
+		messageError += nameTypeLog + " " + DateFormat.getDateInstance(DateFormat.LONG).format(new Date()) + " " + messageText;
 		return messageError;
 	}
 }
