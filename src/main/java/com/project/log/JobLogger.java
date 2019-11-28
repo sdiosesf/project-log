@@ -14,25 +14,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JobLogger {
-    private static boolean logToFile;
-    private static boolean logToConsole;
-    private static boolean logMessage;
-    private static boolean logWarning;
-    private static boolean logError;
-    private static boolean logToDatabase;
-    private static Map<String, String> dbParams;
-    private static Logger logger;
+	private static boolean logToFile;
+	private static boolean logToConsole;
+	private static boolean logMessage;
+	private static boolean logWarning;
+	private static boolean logError;
+	private static boolean logToDatabase;
+	private static Map<String, String> dbParams;
+	private static Logger logger;
 
-    public JobLogger(boolean logToFileParam, boolean logToConsoleParam, boolean logToDatabaseParam, boolean logMessageParam, boolean logWarningParam, boolean logErrorParam, Map<String, String> dbParamsMap) {
-        logger = Logger.getLogger("MyLog");
-        logError = logErrorParam;
-        logMessage = logMessageParam;
-        logWarning = logWarningParam;
-        logToDatabase = logToDatabaseParam;
-        logToFile = logToFileParam;
-        logToConsole = logToConsoleParam;
-        dbParams = dbParamsMap;
-    }
+	public JobLogger(boolean logToFileParam, boolean logToConsoleParam, boolean logToDatabaseParam, boolean logMessageParam, boolean logWarningParam, boolean logErrorParam, Map<String, String> dbParamsMap) {
+		logger = Logger.getLogger("MyLog");
+		logError = logErrorParam;
+		logMessage = logMessageParam;
+		logWarning = logWarningParam;
+		logToDatabase = logToDatabaseParam;
+		logToFile = logToFileParam;
+		logToConsole = logToConsoleParam;
+		dbParams = dbParamsMap;
+	}
 
 	/**
 	 * method that allows to process the type of log
