@@ -34,13 +34,14 @@ public class JobLogger {
         dbParams = dbParamsMap;
     }
 
-    /**
-     * method that allows to process the type of log
-     * @param messageText
-     * @param message
-     * @param warning
-     * @param error
-     */
+	/**
+	 * method that allows to process the type of log
+	 * 
+	 * @param messageText
+	 * @param message
+	 * @param warning
+	 * @param error
+	 */
 	public void logMessage(String messageText, boolean message, boolean warning, boolean error) throws Exception {
 		int logQuantity = 0;
 		String messageError = "";
@@ -102,11 +103,12 @@ public class JobLogger {
 	}
 	
 	/**
-     * method that processes the error message
-     * @param messageError
-     * @param messageText
-     * @param nameTypeLog
-     */
+	 * method that processes the error message
+	 * 
+	 * @param messageError
+	 * @param messageText
+	 * @param nameTypeLog
+	 */
 	private String getMessageError(String messageError, String messageText, String nameTypeLog) {
 		if (messageError != null && !messageError.trim().isEmpty()) {
 			messageError += "\n";
